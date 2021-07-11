@@ -11,6 +11,9 @@
             justify-content: center;
             align-items: center;
         }
+        .grid {
+            display: grid;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +22,7 @@
         <button onclick="sendMessage()">Click</button>
         <br>
         <img id="gif" src="https://media1.giphy.com/media/d6KjQRziAPolQrFMrS/giphy.gif?cid=ad8b516e9e1acd2a5841574ccee428ad7fde99daeeb32130&rid=giphy.gif&ct=g" alt="Gifs">
-        <div id="list">
+        <div id="list" class="">
 
         </div>
     </div>
@@ -29,7 +32,7 @@
     const image = document.getElementById('gif')
 
     // Create WebSocket connection.
-    const socket = new WebSocket('ws://localhost:3003');
+    const socket = new WebSocket('ws://minecraft-gifs.herokuapp.com');
 
     // Connection opened
     socket.addEventListener('open', function (event) {
@@ -38,10 +41,16 @@
 
     // Listen for messages
     socket.addEventListener('message', function (event) {
+        // var list = document.getElementById("list");
+
+        // while (list.hasChildNodes()) {  
+        //     list.removeChild(list.firstChild);
+        // }
         console.log('Message from server ', event.data);
         console.log(event.data)
         img = document.createElement('img')
         img.src = event.data
+        img.height = 300
         document.getElementById('list').appendChild(img)
         // image.src = event.data
     });
